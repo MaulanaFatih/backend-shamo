@@ -15,7 +15,7 @@ class ProductController extends Controller
         $limit = $request->input('limit');
         $name = $request->input('name');
         $description = $request->input('description');
-        $text = $request->input('text');
+
         $tags = $request->input('tags');
         $categories = $request->input('categories');
 
