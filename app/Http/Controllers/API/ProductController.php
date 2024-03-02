@@ -66,4 +66,48 @@ class ProductController extends Controller
 
         );
     }
+    public function create(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            // Add other validation rules as needed
+        ]);
+
+        $product = Product::create($request->all());
+
+        return ResponseFormatter::success(
+            $product,
+            'Product Created Successfully'
+        );
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return ResponseFormatter::error(
+                null,
+                'Product not found',
+                404
+            );
+        }
+
+        $request->validate([
+            'name' => 'string|max:255',
+            'description' => 'string',
+            'price' => 'numeric',
+            // Add other validation rules as needed
+        ]);
+
+        $product->update($request->all());
+
+        return ResponseFormatter::success(
+            $product,
+            'Product Updated Successfully'
+        );
+    }
+
 }
